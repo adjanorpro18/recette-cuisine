@@ -1,37 +1,41 @@
 package com.example.recettecuisine.entites;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
- * Entité Catégorie avec ses attributs
+ * Entité Ingredient avec ses attributs
  * @param id qui est l'identifiant de l'entité
- * @param nom qui est le nom de la catégorie
+ * @param liste qui est la liste des ingredients
  */
 @Entity
-public class Categorie {
+public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
+    private String quantité;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="recette_id")
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "recette_ingredient",
+            joinColumns = @JoinColumn(name = "ingredient_id"),
+            inverseJoinColumns = @JoinColumn(name = "recette_id"))
     private Set<Recette> recettes = new HashSet<>();
 
     /**
-     * Constructeur spar defaut
+     * Constrcuteur par defaut
      */
-    public Categorie() {
+    public Ingredient() {
     }
 
     /**
-     * Getters et Setters des attributs de l'entite
+     * Getters et Setters
      */
-
     public Long getId() {
         return id;
     }
@@ -48,6 +52,14 @@ public class Categorie {
         this.nom = nom;
     }
 
+    public String getQuantité() {
+        return quantité;
+    }
+
+    public void setQuantité(String quantité) {
+        this.quantité = quantité;
+    }
+
     public Set<Recette> getRecettes() {
         return recettes;
     }
@@ -57,13 +69,16 @@ public class Categorie {
     }
 
     /**
-     * Methode toString() qui retourne les valeurs des attrtibuts de l'entité
+     * Methode toString() de l'entité Ingredient
      */
     @Override
     public String toString() {
-        return "Categorie{" +
+        return "Ingredient{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
+                ", quantité='" + quantité + '\'' +
+                ", recettes=" + recettes +
                 '}';
     }
 }
+

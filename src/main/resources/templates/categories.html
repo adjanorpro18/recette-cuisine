@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- See configuration in WebMvConfig.java -->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <style>
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+        a{
+            font-size: large;
+        }
+        .card{
+            border: 3px solid blue;
+            width: 18rem;
+        }
+        table, td, th {
+            border: 1px solid black;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            padding: 5px;
+            height: 2em;
+        }
+        table a {
+            color: blue;
+            text-decoration: none;
+            border: 1px solid rgb(148, 144, 144);
+            border-radius: 25%;
+            padding: 5px;
+            margin: 15px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+   <div class="container-fluid">
+       <div class="jumbotron-fluid">
+           <nav class="navbar navbar-expand-lg navbar-dark bg-primary jumbotron">
+               <div class="container-fluid">
+                   <a class="navbar-brand mr-auto" href="#" >Recettes de Cuisine</a>
+                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                       <span class="navbar-toggler-icon"></span>
+                   </button>
+                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                       <ul class="navbar-nav ml-auto ">
+                           <!-- <li class="nav-item active">
+                               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                           </li> -->
+
+                           <li class="nav-item dropdown active mr-3">
+                               <a class="nav-link dropdown-toggle" href="#" id="recettesDropdown" role="button"
+                                  data-toggle="dropdown"
+                                  aria-haspopup="true" aria-expanded="false">
+                                   Recettes
+                               </a>
+                               <div class="dropdown-menu" aria-labelledby="recettesDropdown">
+                                   <a class="dropdown-item" th:href="@{/recettes}">Liste des recettes</a>
+                                   <a class="dropdown-item" th:href="@{/add-recette}">Ajouter une recette</a>
+                                   <a class="dropdown-item" href="#">Supprimer une recette</a>
+                                   <!-- <div class="dropdown-divider"></div>
+                                   <a class="dropdown-item" href="#">Something else here</a> -->
+                               </div>
+                           </li>
+                           <li class="nav-item dropdown active mr-3">
+                               <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   Categories
+                               </a>
+                               <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                                   <a class="dropdown-item" th:href="@{/categories}">Liste des catégories</a>
+                                   <a class="dropdown-item" th:href="@{/add-categorie}">Ajouter une catégorie</a>
+                                   <a class="dropdown-item" th:href="@{/edit-categorie/{id}}" href="#">Editer une catégorie</a>
+                               </div>
+                           </li>
+                           <li class="nav-item dropdown active mr-3">
+                               <a class="nav-link dropdown-toggle" href="#" id="ingredientsDropdown" role="button"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   Ingrédients
+                               </a>
+                               <div class="dropdown-menu" aria-labelledby="ingredientsDropdown">
+                                   <a class="dropdown-item" th:href="@{/ingredients}">Liste des ingrédients</a>
+                                   <a class="dropdown-item" th:href="@{/ingredient}">Ajouter un ingrédient</a>
+                                   <a class="dropdown-item" href="#">Supprimer un ingrédient</a>
+
+                               </div>
+                           </li>
+
+                       </ul>
+                       <form class="d-flex ml-auto">
+                           <input class="form-control ml-2" type="search" aria-label="Search">
+                           <button class="btn btn-outline-white ml-2" type="submit">Recherche</button>
+                       </form>
+                   </div>
+               </div>
+           </nav>
+       </div>
+       <h1 class="text-center text-primary">Liste des categories</h1>
+       <div class="row mb-5">
+           <div class="col-12 m-2" th:each=" categorie : ${categories}">
+               <div class="card text-center">
+                   <div class="card-header">
+                       <h5 th:text="${categorie.nom}">Nom de la catégorie</h5>
+                   </div>
+                   <div class="card-body">
+                       <div class="row">
+                           <div class="col-md-4 m-2" th:each="recette : ${categorie.recettes}">
+                               <div class="card">
+                                   <div class="card-header text-center">
+                                       <h5 th:text="${recette.nom}">Nom de la recette</h5>
+                                   </div>
+                                   <div class="card-body">
+                                       <h5 class="card-title">Liste des ingrédients</h5>
+                                       <ul>
+                                           <li class="card-text" th:each="ingredient : ${recette.ingredients}" th:text="${ingredient.nom}"></li>
+                                       </ul>
+                                       <a th:href="@{/recette/{id}(id=${recette.id})}" class="btn btn-primary">Voir la recette</a>
+                                   </div>
+                                   <div class="card-footer text-muted d-flex justify-content-between">
+                                       <p>
+                                           cuisson : <span id="cuisson" th:text="${recette.tempsCuisson}">50 min</span>
+                                       </p>
+                                       <p>
+                                           <a th:href="@{/like/{id}(id=${recette.id})}"><i class="fas fa-heart icon-like"></i></a>
+                                           &nbsp;
+                                           <span id="like" th:switch="${recette.nbLikes}">
+                                                <span th:case="'0'"></span>
+                                                <span th:case="*" th:text="${recette.nbLikes}"></span>
+                                             </span>
+                                       </p>
+
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="card-text">
+                       <a th:href="@{/categorie/{id}}" class="btn btn-primary m-2"><i class="far 2x fa-eye"></i></a>
+                   </div>
+               </div>
+           </div>
+
+       </div>
+
+    <!-- Scripts -->
+    <script th:src="@{/jquery/jquery.min.js}"></script>
+    <script th:src="@{/popper/popper.min.js}"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+
+</html>
