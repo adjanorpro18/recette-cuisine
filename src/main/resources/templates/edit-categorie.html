@@ -80,7 +80,7 @@
                             <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
                                 <a class="dropdown-item" th:href="@{/categories}">Liste des catégories</a>
                                 <a class="dropdown-item" th:href="@{/add-categorie}">Ajouter une catégorie</a>
-                                <a class="dropdown-item" th:href="@{/edit-categorie/{id}(id=${categorie.id})}">Editer une catégorie</a>
+                                <a class="dropdown-item" th:href="@{/edit-categorie/{id} (id=${categorie.id})}">Editer une catégorie</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown active mr-3">
@@ -115,12 +115,7 @@
                 <a th:href="@{/edidt-categorie/{id}}" class="btn btn-warning col-1 ml-2"><i class="fas 3x fa-pen-square"></i></a>
                 <a th:href="@{/delete-categorie/{id}}" class="btn btn-danger col-1 ml-2"><i class="fas 3x fa-pen-square"></i></a>
                 <a th:href="@{/categories}" class="btn btn-info col-1 ml-2"><i class="fas 3x fa-step-backward"></i></a>
-
-
-
             </div>
-
-
         </form>
     </div>
 

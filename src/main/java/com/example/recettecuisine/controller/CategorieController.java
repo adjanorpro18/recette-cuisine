@@ -73,9 +73,23 @@ public class CategorieController {
      */
 
     @GetMapping("edit-categorie/{id}")
-    public String editCategorie(@PathVariable("id") Long id, Model model){
-        model.addAttribute("categorie",categorieService.findCategorie(id));
+    public String editCategorieForm(@PathVariable("id") Long id, Model model){
+        model.addAttribute("categorie",categorieService.getCategorie(id));
 
         return "edit-categorie";
+    }
+
+    /**
+     * Envoie des données postées en POST via le formulaire
+     * @return la page des categories categories.html
+     */
+    @PostMapping("edit-categorie")
+    public String editCategorie(Categorie categorie, Model model){
+
+        categorieService.updateCategorie(categorie.getId());
+
+        model.addAttribute("categories", categorieService.getCategories());
+
+        return "categories";
     }
 }

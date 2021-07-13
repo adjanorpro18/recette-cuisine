@@ -80,7 +80,7 @@
                             <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
                                 <a class="dropdown-item" th:href="@{/categories}">Liste des catégories</a>
                                 <a class="dropdown-item" th:href="@{/add-categorie}">Ajouter une catégorie</a>
-                                <a class="dropdown-item" th:href="@{/edit-categorie/{id}(id=${categorie.id})}">Editer une catégorie</a>
+                                <a class="dropdown-item" th:href="@{/edit-categorie/{id}}">Editer une catégorie</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown active mr-3">
@@ -105,12 +105,16 @@
             </div>
         </nav>
     </div>
-    <h1 class="text-center text-primary">Ajouter une categorie</h1>
+    <h1 class="text-center text-primary">Ajouter un ingredient</h1>
     <div class="container mt-5">
-        <form action="#" th:action="@{/add-categorie}" th:object="${categorie}" method="post">
+        <form action="#" th:action="@{/add-ingredient}" th:object="${ingredient}" method="post">
             <div class="form-group" >
-                <label for="categorie">Nom de la catégorie : </label>
-                <input type="text" class="form-control" id="categorie" th:field="*{nom}">
+                <label for="ingredient">Nom de l'ingredient : </label>
+                <input type="text" class="form-control" id="ingredient" th:field="*{nom}">
+            </div>
+            <div class="form-group" >
+                <label for="ingredient">Quantité : </label>
+                <input type="text" class="form-control" id="ingredient" th:field="*{quantite}">
             </div>
 
             <button type="submit" class="btn btn-primary mb-2">Ajouter</button>

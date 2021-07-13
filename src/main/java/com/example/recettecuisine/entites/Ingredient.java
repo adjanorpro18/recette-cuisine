@@ -9,7 +9,8 @@ import java.util.Set;
 /**
  * Entité Ingredient avec ses attributs
  * @param id qui est l'identifiant de l'entité
- * @param liste qui est la liste des ingredients
+ * @param nom qui est le nom de l'ingredient
+ * @param quantite qui est la quantité de l'ingredient
  */
 @Entity
 public class Ingredient {
@@ -18,7 +19,7 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    private String quantité;
+    private String quantite;
 
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(
@@ -52,12 +53,12 @@ public class Ingredient {
         this.nom = nom;
     }
 
-    public String getQuantité() {
-        return quantité;
+    public String getQuantite() {
+        return quantite;
     }
 
-    public void setQuantité(String quantité) {
-        this.quantité = quantité;
+    public void setQuantite(String quantite) {
+        this.quantite = quantite;
     }
 
     public Set<Recette> getRecettes() {
@@ -68,17 +69,5 @@ public class Ingredient {
         this.recettes = recettes;
     }
 
-    /**
-     * Methode toString() de l'entité Ingredient
-     */
-    @Override
-    public String toString() {
-        return "Ingredient{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", quantité='" + quantité + '\'' +
-                ", recettes=" + recettes +
-                '}';
-    }
 }
 
