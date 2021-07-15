@@ -62,7 +62,7 @@ public class IngredientController {
 
         ingredientService.addIngredient(ingredient);
 
-        model.addAttribute("ingredientS", ingredientService.getIngredient(ingredient.getId()));
+        model.addAttribute("ingredients", ingredientService.getIngredient(ingredient.getId()));
 
         return "ingredients";
     }

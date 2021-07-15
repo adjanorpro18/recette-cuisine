@@ -67,7 +67,7 @@
                                <div class="dropdown-menu" aria-labelledby="recettesDropdown">
                                    <a class="dropdown-item" th:href="@{/recettes}">Liste des recettes</a>
                                    <a class="dropdown-item" th:href="@{/add-recette}">Ajouter une recette</a>
-                                   <a class="dropdown-item" th:href="@{/edit-recette/{id}}" href="#">Editer une recette</a>
+                                   <a class="dropdown-item" href="#">Supprimer une recette</a>
                                    <!-- <div class="dropdown-divider"></div>
                                    <a class="dropdown-item" href="#">Something else here</a> -->
                                </div>
@@ -91,8 +91,7 @@
                                <div class="dropdown-menu" aria-labelledby="ingredientsDropdown">
                                    <a class="dropdown-item" th:href="@{/ingredients}">Liste des ingrédients</a>
                                    <a class="dropdown-item" th:href="@{/add-ingredient}">Ajouter un ingrédient</a>
-                                   <a class="dropdown-item" th:href="@{/edit-ingredient/{id}}" href="#">Editer un ingredient</a>
-
+                                   <a class="dropdown-item" href="#">Supprimer un ingrédient</a>
 
                                </div>
                            </li>
@@ -106,9 +105,9 @@
                </div>
            </nav>
        </div>
-       <h1 class="text-center text-primary">Liste des categories</h1>
+       <h1 class="text-center text-primary">Liste des recettes</h1>
        <div class="row mb-5">
-           <div class="col-12 m-2" th:each=" categorie : ${categories}">
+           <div class="col-12 m-2" th:each=" recette : ${recettes}">
                <div class="card text-center">
                    <div class="card-header">
                        <h5 th:text="${categorie.nom}">Nom de la catégorie</h5>
@@ -125,16 +124,16 @@
                                        <ul>
                                            <li class="card-text" th:each="ingredient : ${recette.ingredients}" th:text="${ingredient.nom}"></li>
                                        </ul>
-                                       <a th:href="@{/recette/{id}(id=${recette.id})}" class="btn btn-primary">Voir la recette</a>
+                                       <a th:href="@{/recette/{id}}" class="btn btn-primary">Voir la recette</a>
                                    </div>
                                    <div class="card-footer text-muted d-flex justify-content-between">
                                        <p>
-                                           cuisson : <span id="cuisson" th:text="${recette.tempsCuisson}">50 min</span>
+                                           cuisson : <span id="cuisson" th:text="${recette.tempsCuisson}"></span>
                                        </p>
                                        <p>
-                                           <a th:href="@{/like/{id}(id=${recette.id})}"><i class="fas fa-heart icon-like"></i></a>
+                                           <a th:href="@{/like/{id}}"><i class="fas fa-heart icon-like"></i></a>
                                            &nbsp;
-                                           <span id="like" th:switch="${recette.nbLikes}">
+                                           <span id="like" th:switch="${recette.nombreLike}">
                                                 <span th:case="'0'"></span>
                                                 <span th:case="*" th:text="${recette.nbLikes}"></span>
                                              </span>
@@ -146,7 +145,7 @@
                        </div>
                    </div>
                    <div class="card-text">
-                       <a th:href="@{/categorie/{id}}" class="btn btn-primary m-2"><i class="far 2x fa-eye"></i></a>
+                       <a th:href="@{/recette/{id}}" class="btn btn-primary m-2"><i class="far 2x fa-eye"></i></a>
                    </div>
                </div>
            </div>

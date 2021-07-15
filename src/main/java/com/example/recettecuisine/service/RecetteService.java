@@ -1,5 +1,6 @@
 package com.example.recettecuisine.service;
 
+import com.example.recettecuisine.entites.Ingredient;
 import com.example.recettecuisine.entites.Recette;
 
 import com.example.recettecuisine.repository.RecetteRepository;
@@ -15,13 +16,11 @@ import java.util.List;
  * @author: Enyon
  */
 @Service
-public class CuisineService {
+public class RecetteService {
 
-    /**/
     /**
      * Service concernant l'entité Recette
      */
-
 
     @Autowired
     RecetteRepository recetteRepository;
@@ -29,7 +28,7 @@ public class CuisineService {
 
     /**
      * Methode qui retourne la liste des recettes
-     * @return recettes
+     * @return liste des recettes
      */
 
     public List<Recette> getRecettes(){
@@ -39,12 +38,13 @@ public class CuisineService {
 
     /**
      * Methode qui permet d'ajouter une recette
+     * @param recette
      * @return recette
      */
 
     public String addRecette(Recette recette){
         recetteRepository.save(recette);
-        return "L'ingrédient " + recette + "a été bien ajouté";
+        return "La recette " + recette + "a été bien ajoutée";
     }
 
     /**
@@ -52,9 +52,24 @@ public class CuisineService {
      * @return recette
      */
 
-    public Recette findRecette(Long id){
+    public Recette getRecette(Long id){
 
         return recetteRepository.findById(id).get();
+    }
+
+    /**
+     * Methode qui permet de modifier une categorie donnée
+     *  @param id identifiant de la catégorie
+     * @return recette qui est modifiée
+     */
+
+    public String updateRecette(Long id){
+
+        Recette recette = recetteRepository.findById(id).get();
+
+        recetteRepository.save(recette);
+
+        return " La recette  " + recette + " a bien été modifiée";
     }
 
     /**
@@ -68,6 +83,6 @@ public class CuisineService {
 
         recetteRepository.delete(recette);
 
-        return " L'ingredient " + recette + " a bien été supprimée";
+        return " La recette " + recette + " a bien été supprimée";
     }
 }

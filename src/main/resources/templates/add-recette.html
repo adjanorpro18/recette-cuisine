@@ -67,7 +67,7 @@
                             <div class="dropdown-menu" aria-labelledby="recettesDropdown">
                                 <a class="dropdown-item" th:href="@{/recettes}">Liste des recettes</a>
                                 <a class="dropdown-item" th:href="@{/add-recette}">Ajouter une recette</a>
-                                <a class="dropdown-item" href="#">Supprimer une recette</a>
+                                <a class="dropdown-item" th:href="@{/edit-recette/{id}}">Editer une recette</a>
                                 <!-- <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Something else here</a> -->
                             </div>
@@ -80,7 +80,7 @@
                             <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
                                 <a class="dropdown-item" th:href="@{/categories}">Liste des catégories</a>
                                 <a class="dropdown-item" th:href="@{/add-categorie}">Ajouter une catégorie</a>
-                                <a class="dropdown-item" th:href="@{/edit-categorie/{id} (id=${categorie.id})}">Editer une catégorie</a>
+                                <a class="dropdown-item" th:href="@{/edit-categorie/{id}}">Editer une catégorie</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown active mr-3">
@@ -91,7 +91,7 @@
                             <div class="dropdown-menu" aria-labelledby="ingredientsDropdown">
                                 <a class="dropdown-item" th:href="@{/ingredients}">Liste des ingrédients</a>
                                 <a class="dropdown-item" th:href="@{/add-ingredient}">Ajouter un ingrédient</a>
-                                <a class="dropdown-item" href="#">Supprimer un ingrédient</a>
+                                <a class="dropdown-item" th:href="@{/edit-ingredient/{id}}">Editer un ingredient</a>
 
                             </div>
                         </li>
@@ -105,17 +105,46 @@
             </div>
         </nav>
     </div>
-    <h1 class="text-center text-primary">Editer une categorie</h1>
+    <h1 class="text-center text-primary">Ajouter une recette</h1>
     <div class="container mt-5">
-        <form method="POST" action="/edit-categorie">
-            <input type="hidden" name="id" th:field="*{categorie.id}">
-            <div class="row">
-                <label for="nom" class="mr-1 col-3">Nom de la catégorie</label>
-                <input type="text" name="categorie" id="categorie" class="form-control ml-2  col-4" th:field="*{categorie.nom}">
-                <a th:href="@{/edidt-categorie/{id}}" class="btn btn-warning col-1 ml-2"><i class="fas 3x fa-pen-square"></i></a>
-                <a th:href="@{/delete-categorie/{id}}" class="btn btn-danger col-1 ml-2"><i class="fas 3x fa-pen-square"></i></a>
-                <a th:href="@{/categories}" class="btn btn-info col-1 ml-2"><i class="fas 3x fa-step-backward"></i></a>
+        <form action="#" th:action="@{/add-recette}" th:object="${recette}" method="post">
+            <div class="form-group row">
+                <label for="nom" class="col-3">Nom de la recette : </label>
+                <input type="text" class="form-control col-4" id="nom" th:field="*{nom}">
             </div>
+            <div class="form-group row" >
+                <label for="preparation" class="col-3">Preparation: </label>
+                <textarea  id="preparation" th:field="*{preparation}" cols="60" rows="10"></textarea>
+            </div>
+            <div class="form-group row">
+                <label for="modeCuisson" class="col-3">Mode de Cuisson : </label>
+                <input type="text" class="form-control col-4" id="modeCuisson" th:field="*{modeCuisson}">
+            </div>
+            <div class="form-group row" >
+                <label for="tempsCuisson" class="col-3">Temps de Cuisson : </label>
+                <input type="text" class="form-control col-4" id="tempsCuisson" th:field="*{tempsCuisson}">
+            </div>
+            <div class="form-group row" >
+                <label for="description" class="col-3">Description : </label>
+                <textarea  id="description" th:field="*{description}" cols="60" rows="10"></textarea>
+
+            </div>
+
+            <div class="form-group row" >
+                <label for="nbLike" class="col-3">nombre Like : </label>
+                <input type="number" class="form-control col-4" id="nbLike" th:field="*{nombreLike}">
+            </div>
+
+            <div class="form-group">
+                <label for="categorie">Catégorie</label>
+                <select class="form-control" id="categorie" th:field="${categorie}">
+                    <option th:each="categorie : ${categories}" th:value="${categorie.id}" th:text="${categorie.nom}"></option>
+                </select>
+            </div>
+
+
+
+            <button type="submit" class="btn btn-primary mb-2">Créer une recette</button>
         </form>
     </div>
 
@@ -125,6 +154,7 @@
 <script th:src="@{/jquery/jquery.min.js}"></script>
 <script th:src="@{/popper/popper.min.js}"></script>
 <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+
 </body>
 
 </html>
